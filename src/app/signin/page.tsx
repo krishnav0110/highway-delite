@@ -94,7 +94,6 @@ export default function Signup() {
           maxHeight: 800,
           mx: "auto",
           alignItems: "center",
-          bgcolor: "primary.contrastText" ,
         }}
       >
         <Grid2 size="grow" sx={{ display: { xs: "none", md: "flex" }, height: 1 }}>
