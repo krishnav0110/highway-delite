@@ -225,7 +225,7 @@ export default function Signup() {
 
           <Stack direction="row" spacing={1} sx={{ justifyContent: "center" }}>
             <Typography color="textDisabled">Already have an account?</Typography>
-            <Link sx={{ fontWeight: "bold" }}>Sign in</Link>
+            <Link href="/signin" sx={{ fontWeight: "bold" }}>Sign in</Link>
           </Stack>
         </Container>
       </Grid2>
