@@ -1,6 +1,5 @@
 "use client";
 import * as React from "react";
-import { useRouter } from "next/navigation";
 import Image from "next/image";
 
 import { Box, Container, Stack, Grid2 } from "@mui/material";
@@ -19,17 +18,13 @@ import { useAuth } from "@/components/context/AuthContext";
 
 
 export default function Signin() {
-  const router = useRouter();
-  const { login } = useAuth();
+  const { isLoading, error, login } = useAuth();
 
   const [email, setEmail] = React.useState<string>("");
   const [password, setPassword] = React.useState<string>("");
 
   const [emailErrorMsg, setEmailErrorMsg] = React.useState<string>("");
   const [passwordErrorMsg, setPasswordErrorMsg] = React.useState<string>("");
-
-  const [isLoading, setLoadingState] = React.useState<boolean>(false);
-  const [errorMsg, setErrorMsg] = React.useState<string>("");
 
 
 
@@ -70,31 +65,8 @@ export default function Signin() {
     if (!validateInputs(email, password)) {
       return;
     }
-    setLoadingState(true);
 
-
-
-    try {
-      const res = await fetch("/api/auth/signin", {
-        method: "POST",
-        body: JSON.stringify(credentials),
-      });
-
-      if (res.status !== 200) {
-        setErrorMsg("Invalid credentials");
-        return;
-      }
-      setErrorMsg("");
-      login(await res.json());
-      router.push("/");
-    }
-    catch (error) {
-      setErrorMsg("Error occured");
-      console.error(error);
-    }
-    finally {
-      setLoadingState(false);
-    }
+    await login(credentials);
   };
 
 
@@ -204,7 +176,7 @@ export default function Signin() {
                   >
                     Sign in
                   </Button>
-                  {errorMsg && <Typography color="error">{errorMsg}</Typography>}
+                  {error && <Typography color="error">{error}</Typography>}
                 </Stack>
 
                 <Divider>or</Divider>

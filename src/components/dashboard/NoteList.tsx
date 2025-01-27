@@ -1,10 +1,11 @@
 "use client";
 import * as React from "react";
 
-import { Stack, Typography } from "@mui/material";
-import { useAuth } from "@/components/context/AuthContext";
+import { Paper, Stack } from "@mui/material";
+import { Typography, CircularProgress } from "@mui/material";
 
-import { NoteType } from "@/lib/types";
+import { useNotes } from "@/components/context/NotesContext";
+
 import { Note } from "./Note";
 
 
@@ -13,47 +14,42 @@ import { Note } from "./Note";
 
 export const NoteList: React.FC = () => {
 
-  const { user } = useAuth();
-  const [notes, setNotes] = React.useState<NoteType[]>([]);
-  const [error, setError] = React.useState<boolean>(false);
+  const { notes, isLoading, error } = useNotes();
 
 
 
 
 
-  React.useEffect(() => {
-    if (!user) {
-      return;
-    }
-    setError(false);
+  if (isLoading) {
+    return (
+      <Paper elevation={3} sx={{ p: 2 }}>
+        <Stack sx={{ alignItems: "center" }}>
+          <CircularProgress />
+        </Stack>
+      </Paper>
+    );
+  }
 
-    const fetchNotes = async () => {
-      try {
-        const res = await fetch(`/api/notes/${user._id}`);
-        if (res.status !== 200) {
-          setError(true);
-        }
-        setNotes(await res.json());
-      }
-      catch (error) {
-        console.error(error);
-        setError(true);
-      }
-    };
-    fetchNotes();
-  }, [user]);
+  if (error) {
+    return (
+      <Typography color="error" textAlign="center">Error occured while fetching Notes</Typography>
+    );
+  }
 
-
-
-
+  if (!isLoading && notes?.length === 0) {
+    return (
+      <Paper elevation={3} sx={{ p: 2 }}>
+        <Typography variant="h6" textAlign="center">No Notes</Typography>
+        <Typography color="info" textAlign="center">Start by creating notes</Typography>
+      </Paper>
+    );
+  }
 
   return (
     <Stack spacing={1}>
-      <Typography>Notes</Typography>
       {notes?.map((note, index) => (
         <Note key={index} note={note} />
       ))}
-      {error && <Typography>Error occured while fetching Notes</Typography>}
     </Stack>
   );
 }

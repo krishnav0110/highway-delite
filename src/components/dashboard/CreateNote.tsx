@@ -1,8 +1,11 @@
 import * as React from "react";
 
-import { Dialog, DialogTitle, DialogContent, DialogActions } from "@mui/material";
-import { Button, TextField } from "@mui/material";
-import { useAuth } from "@/components/context/AuthContext";
+import { Box, Dialog, DialogTitle, DialogContent, DialogActions } from "@mui/material";
+import { Button, TextField, Typography } from "@mui/material";
+
+import { Add as AddIcon } from "@mui/icons-material";
+
+import { useNotes } from "@/components/context/NotesContext";
 
 
 
@@ -15,36 +18,17 @@ export const CreateNote: React.FC<{
   open, setOpen
 }) => {
 
-  const { user } = useAuth();
+  const { isLoading, error, addNote } = useNotes();
+
   const [note, setNote] = React.useState<string>("");
-  const [error, setError] = React.useState<boolean>(false);
 
 
 
 
 
   const handleClick = async () => {
-    if (!user) {
-      return;
-    }
-    setError(false);
-
-    try {
-      const res = await fetch("/api/notes", {
-        method: "POST",
-        body: JSON.stringify({ userId: user._id, data: note })
-      });
-
-      if (res.status !== 201) {
-        setError(true);
-      }
-
-      setOpen(false);
-    }
-    catch (error) {
-      setError(true);
-      console.error(error);
-    }
+    await addNote(note);
+    setOpen(false);
   };
 
 
@@ -68,12 +52,19 @@ export const CreateNote: React.FC<{
       </DialogContent>
 
       <DialogActions>
-        <Button
-          variant="contained"
-          onClick={handleClick}
-        >
-          ADD NOTE
-        </Button>
+        <Box>
+          <Button
+            variant="contained"
+            loading={isLoading}
+            startIcon={<AddIcon />}
+            onClick={() => {
+              handleClick();
+            }}
+          >
+            ADD NOTE
+          </Button>
+          {error && <Typography variant="body2" color="error">Error occured</Typography>}
+        </Box>
       </DialogActions>
     </Dialog>
   );

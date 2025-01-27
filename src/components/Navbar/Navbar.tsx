@@ -4,7 +4,7 @@ import { useRouter, usePathname } from "next/navigation";
 
 import { Box } from "@mui/material";
 import { AppBar, Toolbar } from "@mui/material";
-import { Typography, Link } from "@mui/material";
+import { Typography, Button } from "@mui/material";
 
 import { LogoIcon } from "@/components/icons";
 
@@ -20,7 +20,7 @@ export const Navbar: React.FC = () => {
 
   const router = useRouter();
   const pathname = usePathname();
-  const { user, logout } = useAuth();
+  const { user, isLoading, logout } = useAuth();
 
   const currentActivePage = links.find(link => link.href === pathname)?.displayName;
 
@@ -30,8 +30,13 @@ export const Navbar: React.FC = () => {
 
   const handleSignOut = async (event: any) => {
     event.preventDefault();
-    logout();
-    router.push("/signin");
+    try {
+      await logout();
+      router.push("/signin");
+    }
+    catch (error) {
+      console.error(error);
+    }
   };
 
 
@@ -52,14 +57,13 @@ export const Navbar: React.FC = () => {
         </Box>
 
         {user &&
-          <Link
-            href=""
-            variant="body2"  
-            sx={{ fontWeight: "bold" }}
+          <Button
+            loading={isLoading}
+            sx={{ fontWeight: "bold", textDecoration: "underline" }}
             onClick={handleSignOut}
           >
             Sign out
-          </Link>
+          </Button>
         }
       </Toolbar>
     </AppBar>

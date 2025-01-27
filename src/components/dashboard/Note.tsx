@@ -5,6 +5,7 @@ import { Stack, Typography, Paper, IconButton } from "@mui/material";
 import { DeleteOutline as DeleteIcon } from "@mui/icons-material";
 
 import { NoteType } from "@/lib/types";
+import { useNotes } from "@/components/context/NotesContext";
 
 
 
@@ -12,27 +13,12 @@ import { NoteType } from "@/lib/types";
 
 export const Note: React.FC<{note: NoteType}> = ({ note }) => {
 
-  const [isLoading, setLoading] = React.useState<boolean>(false);
+  const { isLoading, deleteNote } = useNotes();
 
 
 
   const handleDelete = async () => {
-    setLoading(true);
-    try {
-      const res = await fetch(`/api/notes/${note.userId}/${note._id}`, {
-        method: "DELETE"
-      });
-
-      if (res.status !== 200) {
-        console.error("Server Error: Couldnt delete note");
-      }
-    }
-    catch (error) {
-      console.error(error);
-    }
-    finally {
-      setLoading(false);
-    }
+    await deleteNote(note);
   };
 
 

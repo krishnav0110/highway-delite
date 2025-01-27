@@ -40,6 +40,8 @@ export default function Home() {
         </Button>
 
         <CreateNote open={openCreateNoteDialog} setOpen={setOpenCreateNoteDialog} />
+
+        <Typography variant="h6">Notes</Typography>
         <NoteList />
       </Stack>
     </Container>

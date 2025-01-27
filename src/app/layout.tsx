@@ -9,6 +9,7 @@ import "./globals.css";
 
 import { Navbar } from "@/components/Navbar";
 import { AuthProvider } from "@/components/context/AuthContext";
+import { NotesProvider } from "@/components/context/NotesContext";
 
 
 
@@ -32,7 +33,9 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
             <CssBaseline />
             <AuthProvider>
               <Navbar />
-              {children}
+              <NotesProvider>
+                {children}
+              </NotesProvider>
             </AuthProvider>
           </ThemeProvider>
         </AppRouterCacheProvider>
