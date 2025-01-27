@@ -8,6 +8,7 @@ import { theme } from '@/lib/theme';
 import "./globals.css";
 
 import Navbar from "@/components/Navbar/Navbar";
+import { AuthProvider } from "@/components/context/AuthContext";
 
 
 
@@ -29,8 +30,10 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <AppRouterCacheProvider options={{ enableCssLayer: true }}>
           <ThemeProvider theme={theme}>
             <CssBaseline />
-            <Navbar />
-            {children}
+            <AuthProvider>
+              <Navbar />
+              {children}
+            </AuthProvider>
           </ThemeProvider>
         </AppRouterCacheProvider>
       </body>

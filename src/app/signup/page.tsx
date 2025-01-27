@@ -1,5 +1,6 @@
 "use client";
 import * as React from "react";
+import { useRouter } from "next/navigation";
 import Image from "next/image";
 
 import { Box, Container, Stack, Grid2 } from "@mui/material";
@@ -15,6 +16,8 @@ import { validateEmail, validateName, validatePassword } from "@/lib/validation"
 
 
 export default function Signup() {
+  const router = useRouter();
+
   const [name, setName] = React.useState<string>("");
   const [dob, setDob] = React.useState<string>("2025-07-24");
   const [email, setEmail] = React.useState<string>("");
@@ -35,7 +38,7 @@ export default function Signup() {
     let isValid = true;
 
     if (!validateName(name)) {
-      setNameErrorMsg("Please enter a valid email address.");
+      setNameErrorMsg("Please enter a valid name.");
       isValid = false;
     } else {
       setNameErrorMsg("");
@@ -80,10 +83,19 @@ export default function Signup() {
 
 
     try {
-      console.log(credentials);
+      const res = await fetch("/api/auth/signup", {
+        method: "POST",
+        body: JSON.stringify(credentials),
+      });
+
+      if (res.status !== 201) {
+        setErrorMsg("Invalid credentials");
+      }
+      setErrorMsg("");
+      router.push("/signin");
     }
     catch (error) {
-      setErrorMsg("Invalid credentials");
+      setErrorMsg("Error occured");
       console.error(error);
     }
     finally {

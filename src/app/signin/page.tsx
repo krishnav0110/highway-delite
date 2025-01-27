@@ -1,5 +1,6 @@
 "use client";
 import * as React from "react";
+import { useRouter } from "next/navigation";
 import Image from "next/image";
 
 import { Box, Container, Stack, Grid2 } from "@mui/material";
@@ -11,11 +12,16 @@ import { validateEmail, validatePassword } from "@/lib/validation";
 
 import { GoogleIcon } from "@/components/icons/icons";
 
+import { useAuth } from "@/components/context/AuthContext";
 
 
 
 
-export default function Signup() {
+
+export default function Signin() {
+  const router = useRouter();
+  const { login } = useAuth();
+
   const [email, setEmail] = React.useState<string>("");
   const [password, setPassword] = React.useState<string>("");
 
@@ -69,10 +75,20 @@ export default function Signup() {
 
 
     try {
-      console.log(credentials);
+      const res = await fetch("/api/auth/signin", {
+        method: "POST",
+        body: JSON.stringify(credentials),
+      });
+
+      if (res.status !== 200) {
+        setErrorMsg("Invalid credentials");
+      }
+      setErrorMsg("");
+      login(await res.json());
+      router.push("/");
     }
     catch (error) {
-      setErrorMsg("Invalid credentials");
+      setErrorMsg("Error occured");
       console.error(error);
     }
     finally {

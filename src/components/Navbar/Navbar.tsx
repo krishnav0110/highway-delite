@@ -1,5 +1,5 @@
 "use client";
-import { usePathname } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 
 import { Box } from "@mui/material";
 import { AppBar, Toolbar } from "@mui/material";
@@ -9,18 +9,17 @@ import { LogoIcon } from "@/components/icons/icons";
 
 import { links } from "@/lib/constants";
 
-
-
-
-
-const user = {};
+import { useAuth } from "../context/AuthContext";
 
 
 
 
 
 export default function Navbar() {
+  const router = useRouter();
   const pathname = usePathname();
+  const { user, logout } = useAuth();
+
   const currentActivePage = links.find(link => link.href === pathname)?.displayName;
 
 
@@ -29,7 +28,8 @@ export default function Navbar() {
 
   const handleSignOut = async (event: any) => {
     event.preventDefault();
-    console.log("sign out");
+    logout();
+    router.push("/signin");
   };
 
 
