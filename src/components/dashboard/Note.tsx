@@ -4,11 +4,14 @@ import { Stack, Typography, Paper, IconButton } from "@mui/material";
 
 import { DeleteOutline as DeleteIcon } from "@mui/icons-material";
 
+import { NoteType } from "@/lib/types";
 
 
 
 
-export default function Note ({ note }: { note: { _id: string, userId: string, data: string } }) {
+
+export const Note: React.FC<{note: NoteType}> = ({ note }) => {
+
   const [isLoading, setLoading] = React.useState<boolean>(false);
 
 

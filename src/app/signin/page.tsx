@@ -82,6 +82,7 @@ export default function Signin() {
 
       if (res.status !== 200) {
         setErrorMsg("Invalid credentials");
+        return;
       }
       setErrorMsg("");
       login(await res.json());

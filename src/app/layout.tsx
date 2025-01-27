@@ -7,7 +7,7 @@ import { ThemeProvider } from '@mui/material/styles';
 import { theme } from '@/lib/theme';
 import "./globals.css";
 
-import Navbar from "@/components/Navbar/Navbar";
+import { Navbar } from "@/components/Navbar";
 import { AuthProvider } from "@/components/context/AuthContext";
 
 

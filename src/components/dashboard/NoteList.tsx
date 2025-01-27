@@ -4,15 +4,17 @@ import * as React from "react";
 import { Stack, Typography } from "@mui/material";
 import { useAuth } from "@/components/context/AuthContext";
 
-import Note from "./Note";
+import { NoteType } from "@/lib/types";
+import { Note } from "./Note";
 
 
 
 
 
-export default function TaskList () {
+export const NoteList: React.FC = () => {
+
   const { user } = useAuth();
-  const [notes, setNotes] = React.useState<{}[]>([]);
+  const [notes, setNotes] = React.useState<NoteType[]>([]);
   const [error, setError] = React.useState<boolean>(false);
 
 

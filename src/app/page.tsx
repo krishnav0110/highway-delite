@@ -5,8 +5,7 @@ import { Container, Stack } from "@mui/material";
 import { Paper, Typography } from "@mui/material";
 import { Button } from "@mui/material";
 
-import TaskList from "@/components/dashboard/NoteList";
-import CreateNote from "@/components/dashboard/CreateNote";
+import { NoteList, CreateNote } from "@/components/dashboard";
 import { useAuth } from "@/components/context/AuthContext";
 
 
@@ -41,7 +40,7 @@ export default function Home() {
         </Button>
 
         <CreateNote open={openCreateNoteDialog} setOpen={setOpenCreateNoteDialog} />
-        <TaskList />
+        <NoteList />
       </Stack>
     </Container>
   );

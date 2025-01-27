@@ -1,11 +1,12 @@
 "use client";
+import * as React from "react";
 import { useRouter, usePathname } from "next/navigation";
 
 import { Box } from "@mui/material";
 import { AppBar, Toolbar } from "@mui/material";
 import { Typography, Link } from "@mui/material";
 
-import { LogoIcon } from "@/components/icons/icons";
+import { LogoIcon } from "@/components/icons";
 
 import { links } from "@/lib/constants";
 
@@ -15,7 +16,8 @@ import { useAuth } from "../context/AuthContext";
 
 
 
-export default function Navbar() {
+export const Navbar: React.FC = () => {
+
   const router = useRouter();
   const pathname = usePathname();
   const { user, logout } = useAuth();

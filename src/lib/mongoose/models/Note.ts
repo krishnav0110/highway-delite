@@ -4,7 +4,8 @@ import mongoose from "mongoose";
 
 const NoteSchema = new mongoose.Schema({
   userId: {
-    type: String,
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
     required: true,
   },
   data: {
@@ -15,4 +16,4 @@ const NoteSchema = new mongoose.Schema({
 
 
 
-export const NotesModel = mongoose.models.notes || mongoose.model("notes", NoteSchema);
+export const NotesModel = mongoose.models.Note || mongoose.model("Note", NoteSchema);

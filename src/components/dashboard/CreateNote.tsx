@@ -8,10 +8,12 @@ import { useAuth } from "@/components/context/AuthContext";
 
 
 
-export default function CreateNote ({ open, setOpen }: {
+export const CreateNote: React.FC<{
   open: boolean,
   setOpen: React.Dispatch<React.SetStateAction<boolean>>
-}) {
+}> = ({
+  open, setOpen
+}) => {
 
   const { user } = useAuth();
   const [note, setNote] = React.useState<string>("");

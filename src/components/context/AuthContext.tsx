@@ -1,20 +1,15 @@
 "use client";
 import * as React from "react";
 
+import { UserType } from "@/lib/types";
 
 
 
 
-interface UserType {
-  _id: string,
-  email: string,
-  name: string,
-  dob?: string,
-};
 
 interface AuthContextType {
   user: UserType|null,
-  login: (user: {}) => void,
+  login: (user: UserType) => void,
   logout: () => void,
 };
 
@@ -40,7 +35,7 @@ export const AuthProvider: React.FC<{children: React.ReactNode}> = ({ children }
 
 
 
-  const login = (user: {}) => {
+  const login = (user: UserType) => {
     localStorage.setItem("user", JSON.stringify(user));
   };
 

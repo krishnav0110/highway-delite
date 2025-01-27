@@ -17,11 +17,11 @@ const UserSchema = new mongoose.Schema({
     required: true,
   },
   dob: {
-    type: String,
+    type: Date,
     required: true,
   }
 });
 
 
 
-export const UsersModel = mongoose.models.users || mongoose.model("users", UserSchema);
+export const UsersModel = mongoose.models.User || mongoose.model("User", UserSchema);
