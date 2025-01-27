@@ -41,7 +41,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }
 
     setLoadingState(false);
-  }, []);
+  }, [router]);
 
 
 
@@ -67,7 +67,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       localStorage.setItem("user", JSON.stringify(resUser));
       router.push("/");
     }
-    catch (error) {
+    catch {
       setError(AuthErrorType.CLIENT_ERROR);
     }
     finally {
@@ -93,7 +93,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       localStorage.removeItem("user");
       router.push("/signin");
     }
-    catch (error) {
+    catch {
       setError(AuthErrorType.CLIENT_ERROR);
     }
     finally {

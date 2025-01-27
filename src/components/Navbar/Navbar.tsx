@@ -28,8 +28,7 @@ export const Navbar: React.FC = () => {
 
 
 
-  const handleSignOut = async (event: any) => {
-    event.preventDefault();
+  const handleSignOut = async () => {
     try {
       await logout();
       router.push("/signin");

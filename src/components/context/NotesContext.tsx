@@ -63,7 +63,7 @@ export const NotesProvider: React.FC<{ children: React.ReactNode }> = ({ childre
       }
       refreshData();
     }
-    catch (error) {
+    catch {
       setError(true);
       setLoadingState(false);
     }
@@ -86,7 +86,7 @@ export const NotesProvider: React.FC<{ children: React.ReactNode }> = ({ childre
       }
       refreshData();
     }
-    catch (error) {
+    catch {
       setError(true);
       setLoadingState(false);
     }
@@ -108,7 +108,7 @@ export const NotesProvider: React.FC<{ children: React.ReactNode }> = ({ childre
       }
       setNotes(await res.json());
     }
-    catch (error) {
+    catch {
       setError(true);
     }
     finally {

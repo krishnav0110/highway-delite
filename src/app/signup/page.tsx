@@ -65,7 +65,7 @@ export default function Signup() {
 
 
 
-  const handleSubmit = async (event: any) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     const credentials = {

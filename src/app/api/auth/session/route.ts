@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 import { headers } from "next/headers";
 
 import * as jwt from "jsonwebtoken";
@@ -7,7 +7,7 @@ import * as jwt from "jsonwebtoken";
 
 
 
-export async function POST (request: NextRequest) {
+export async function POST () {
   const token = (await headers()).get("x-access-token");
 
 
@@ -19,7 +19,7 @@ export async function POST (request: NextRequest) {
   }
 
   try {
-    const decoded = jwt.verify(token, process.env.JWT_API_SECRET!) as jwt.JwtPayload;
+    jwt.verify(token, process.env.JWT_API_SECRET!) as jwt.JwtPayload;
     return NextResponse.json({}, { status: 200 });
   }
   catch (error) {

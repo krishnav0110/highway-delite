@@ -1,12 +1,16 @@
 import mongoose from "mongoose";
 
+declare global {
+  var mongoose: any;
+}
+
 
 
 
 
 const uri = process.env.MONGO_URI ?? "";
 if (!uri) {
-  console.error("MONGO_URI environment variable not defined");
+  throw new Error("MONGO_URI environment variable not defined")
 }
 
 const options = {
