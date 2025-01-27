@@ -6,6 +6,7 @@ import * as React from "react";
 
 
 interface UserType {
+  _id: string,
   email: string,
   name: string,
   dob?: string,

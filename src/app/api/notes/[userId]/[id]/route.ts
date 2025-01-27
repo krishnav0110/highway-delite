@@ -7,13 +7,13 @@ import { NotesModel } from "@/lib/mongoose/models";
 
 
 
-export async function POST (request: NextRequest) {
-  const note = await request.json();
+export async function DELETE (request: NextRequest, { params }: { params: Promise<{ userId: string, id: string }> }) {
+  const { userId, id } = await params;
 
   try {
     await connectMongoDB();
-    const notes = await NotesModel.create(note);
-    return NextResponse.json(notes, { status: 201 });
+    await NotesModel.findOneAndDelete({ _id: id, userId: userId });
+    return NextResponse.json({}, { status: 200 });
   }
   catch (error) {
     return NextResponse.json(error, { status: 500 });

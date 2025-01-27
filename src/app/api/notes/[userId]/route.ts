@@ -7,13 +7,13 @@ import { NotesModel } from "@/lib/mongoose/models";
 
 
 
-export async function POST (request: NextRequest) {
-  const note = await request.json();
+export async function GET (request: NextRequest, { params }: { params: Promise<{ userId: string }> }) {
+  const { userId } = await params;
 
   try {
     await connectMongoDB();
-    const notes = await NotesModel.create(note);
-    return NextResponse.json(notes, { status: 201 });
+    const notes = await NotesModel.find({ userId: userId });
+    return NextResponse.json(notes, { status: 200 });
   }
   catch (error) {
     return NextResponse.json(error, { status: 500 });
