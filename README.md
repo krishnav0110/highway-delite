@@ -1,7 +1,7 @@
 A simple notes app.
 
 ## Live URL:
-url to add
+[https://highway-delite-5x43.vercel.app/](https://highway-delite-5x43.vercel.app/)
 
 ## Getting Started
 
